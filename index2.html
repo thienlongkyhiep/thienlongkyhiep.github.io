@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Quản lý tài khoản TLBB</title>
+    <link rel="icon" type="image/svg+xml" href="/img/icon.png">
+    <my-head></my-head> 
+	<script type="text/javascript" src = "js/config.js"></script>
+    <script  src="index.js"></script>
+</head>
+<body id="page-top">
+    <div id="wrapper">
+      <my-sidebar></my-sidebar> 
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+<my-header></my-header> 
+ <!-- header -->
+<div class="container-fluid">
+	<div class="d-sm-flex align-items-center justify-content-between mb-4">
+		<h1 class="h3 mb-0 text-gray-800">Thông tin tài khoản</h1> </div>
+	<div class="card shadow mb-4">
+		<div class="card-header py-3">
+			<h6 class="m-0 font-weight-bold text-primary">Thông tin tài khoản</h6> </div>
+		<div class="card-body">
+			<p>Tên tài khoản: <span id="name2"></span>
+			</p>
+			<p>Email: *********<span id="email"></span>
+			</p>
+			<p>Bạc Web: <span id="coin2"></span>
+			</p>
+			<p>Bạc Game: <span id="point2"></span>
+			</p>
+			<p>Bạc Game Quy Đổi: <span id="point_quy_doi2"></span>
+			</p>
+			<p>Tổng Bạc đã đổi: <span id="tong"></span> (Đã bao gồm Khuyến Mãi)
+			</p>
+			<p>Ngày tạo: <span id="created"></span>
+			</p>
+			<p>Ngày cập nhật: <span id="updated"></span>
+			</p>
+		</div>
+	</div>
+</div>
+ <!-- footer -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="js/sweetalert.js"></script>
+ <script type="text/javascript">
+ localStorage.setItem("mytime", Date.now());
+ const formatter = new Intl.NumberFormat('vi-VN', {
+ 	style: 'currency',
+ 	currency: 'VND',
+ });
+ $(function() {
+ 	$.post(BASE_URL + API_AUTHEN, {
+ 		'action': AUTHEN_USER_LIST
+ 	}, function(data) {
+ 		$("#check_login_off").hide();
+ 		$("#check_login_on").show();
+ 		var obj = JSON.parse(data)
+ 		console.log(obj)
+ 		if (obj.status == 1) {
+ 			//Hien thi danh sach users
+ 			userList = obj.userList
+ 			for (i = 0; i < userList.length; i++) {
+ 				item = userList[i]
+ 				var email = item['email'];
+ 				var emails = email.slice(10);
+ 				$("#name").html(item['name']);
+ 				$("#name2").html(item['name']);
+ 				$("#email").html(emails);
+ 				$("#created").html(item['created']);
+ 				$("#updated").html(item['updated']);
+ 				$("#coin").html((formatter.format(item['coin'])));
+ 				$("#point").html((formatter.format(item['point'])));
+ 				$("#coin2").html((formatter.format(item['coin'])));
+ 				$("#point2").html((formatter.format(item['point'])));
+				$("#point_quy_doi").html((formatter.format(item['point']*10)));
+				$("#point_quy_doi2").html((formatter.format(item['point']*10)));
+				$("#tong").html((formatter.format(item['tong'])));
+ 			}
+ 		} else {
+ 			window.open('login.html', '_self')
+ 		}
+ 	})
+ })
+
+ function logout() {
+ 	$.post(BASE_URL + API_AUTHEN, {
+ 		'action': AUTHEN_LOGOUT
+ 	}, function(data) {
+ 		window.open('login.html', '_self')
+ 	})
+ }
+</script>
+</body>
+</html>
