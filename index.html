@@ -55,7 +55,8 @@
  });
  $(function() {
  	$.post(BASE_URL + API_AUTHEN, {
- 		'action': AUTHEN_USER_LIST
+ 		'action': AUTHEN_USER_LIST,
+		'token': localStorage.getItem("token")
  	}, function(data) {
  		$("#check_login_off").hide();
  		$("#check_login_on").show();
@@ -91,6 +92,7 @@
  	$.post(BASE_URL + API_AUTHEN, {
  		'action': AUTHEN_LOGOUT
  	}, function(data) {
+        localStorage.removeItem("token")
  		window.open('login.html', '_self')
  	})
  }

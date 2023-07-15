@@ -64,9 +64,9 @@
                                                 required  >
                                         </div>
                                         <div class="form-group">
-										<div class="ant-col ant-form-item-label"><label for="pwd" class="ant-form-item-required" title="Mật khẩu">Mật khẩu<!----></label></div>
+										<div class="ant-col ant-form-item-label"><label for="password" class="ant-form-item-required" title="Mật khẩu">Mật khẩu<!----></label></div>
                                             <input type="password" class="form-control form-control-user"
-                                                required id="pwd" name="password"  >
+                                                required id="password" name="password" autocomplete="on" >
                                         </div>
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
@@ -124,6 +124,7 @@
 					// console.log(data)
 					var obj = JSON.parse(data)
 					if(obj.status == 1) {
+					    localStorage.setItem("token", obj.token);
 						window.open('index.html', '_self')
 					} else {
 						Swal.fire({icon: 'error',title: 'Lỗi...',text: ""+obj.msg+""})
