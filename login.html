@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Quản lý tài khoản TLBB</title>
+    <!-- Custom fonts for this template-->
+	<link rel="icon" type="image/svg+xml" href="/img/icon.png">
+    <script type="text/javascript" src = "js/config.js"></script>
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-primary">
+<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow" style=" justify-content: center; align-items: center; " >
+                  
+<ul class="navbar-nav ml-auto">
+                        <!-- Nav Item - Messages -->
+                        <li class="nav-item dropdown no-arrow mx-1">
+                            <a href="/" class=""><img src="img/logo.png?v=1" alt="logo" style="height: 90px;"></a>
+                        </li>
+                        <li class="nav-item dropdown no-arrow mx-1">
+                            <a class="nav-link dropdown-toggle" href="/"  >
+                              Trang chủ
+                            </a>
+                        </li>
+						 <li class="nav-item dropdown no-arrow mx-1">
+                            <a class="nav-link dropdown-toggle" href="/login.html"  >
+                            Đăng nhập
+                            </a>
+                        </li>
+						 <li class="nav-item dropdown no-arrow mx-1">
+                            <a class="nav-link dropdown-toggle" href="/register.html"  >
+                              Đăng ký
+                            </a>
+                        </li>
+                    </ul>
+
+                </nav>
+    <div class="container">
+        <!-- Outer Row -->
+        <div class="row justify-content-center">
+
+            <div class="col-xl-6 col-lg-12 col-md-9">
+
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                    <div class="card-body p-0">
+                        <!-- Nested Row within Card Body -->
+                        <div class="row">
+                             
+                            <div class="col-lg-12">
+                                <div class="p-5">
+                                    
+                                 	<form method="post">
+									
+                                        <div class="form-group">
+										<div class="ant-col ant-form-item-label"><label for="name" class="ant-form-item-required" title="Tên đăng nhập">Tên đăng nhập<!----></label></div>
+                                            <input type="text" class="form-control form-control-user"
+                                               id="name" name="name"
+                                                required  >
+                                        </div>
+                                        <div class="form-group">
+										<div class="ant-col ant-form-item-label"><label for="pwd" class="ant-form-item-required" title="Mật khẩu">Mật khẩu<!----></label></div>
+                                            <input type="password" class="form-control form-control-user"
+                                                required id="pwd" name="password"  >
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="custom-control custom-checkbox small">
+                                                <input type="checkbox" class="custom-control-input" id="customCheck" checked>
+                                                <label class="custom-control-label" for="customCheck">Ghi nhớ trạng thái đăng nhập</label>
+                                            </div>
+                                        </div>
+                                        <button type="submit"  class="btn btn-primary btn-user btn-block">
+                                            Đăng nhập
+                                        </button>
+                                        <hr>
+                                        <a href="/register.html" class="btn btn-google btn-user btn-block">
+                                            Đăng ký tài khoản mới
+                                        </a>
+                                      
+                                    </form>
+                                    <hr>
+                                    <div class="text-center">
+                                        <a class="small" href="forgot-password.html">Quên mật khẩu?</a>
+                                    </div>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+	    <!-- Bootstrap core JavaScript-->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="js/sweetalert.js"></script>
+
+<script type="text/javascript">
+ 
+
+    
+        
+     
+  
+		$(function() {
+			$('form').submit(function() {
+				var name = $('[name=name]').val()
+				var password = $('[name=password]').val()
+
+				$.post(BASE_URL + API_AUTHEN, {
+					'action': AUTHEN_LOGIN,
+					'name': name,
+					'password': password
+				}, function(data) {
+					// console.log(data)
+					var obj = JSON.parse(data)
+					if(obj.status == 1) {
+						window.open('index.html', '_self')
+					} else {
+						Swal.fire({icon: 'error',title: 'Lỗi...',text: ""+obj.msg+""})
+					}
+				})
+
+				return false
+			})
+		})
+	</script>
+</body>
+
+</html>
